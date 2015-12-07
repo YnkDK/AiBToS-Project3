@@ -16,7 +16,7 @@ void HartIstrail::print_relative_format() {
 
 }
 
-void HartIstrail::run() {
+void HartIstrail::findEvenOdd() {
 
     size_t i, j;
 
@@ -27,14 +27,14 @@ void HartIstrail::run() {
 
     while(true){
 
-        //move i to the right as long as you keep reading p
-        while(i < j && !data[i]){
+        //move i to the right as long as you keep reading p or the index of i is odd
+        while(i < j && (!data[i] || !isEven(i))){
             i++;
         }
 
-        //move j to the left as long as you keep reading p
+        //move j to the left as long as you keep reading p or the index of j is even
 
-        while(i < j && !data[j]){
+        while(i < j && (!data[j] || isEven(j))){
             j--;
         }
 
@@ -44,24 +44,58 @@ void HartIstrail::run() {
             break;
         }
 
-        //now we are in the case that i is some h, j is some other h and i < j, so we have to update the tables
-
-        if(!isEven(i)){
-            //if i is odd, we have to increment i
-            i++;
-        }
-        else if(isEven(j)){
-            //now i is even, so if j is also even, we have to decrement j
-            j--;
-        }
-        else{
-            //now i is even and j is odd, so we have a match
-            pair<int, int> p;
-            p.first = i;
-            p.second = j;
-        }
+        //now i<j and i is even and j is odd
+        evenL.push_back(i);
+        oddR.push_back(j);
+        i++;
+        j--;
 
     }
+
+}
+
+void HartIstrail::findOddEven() {
+
+    size_t i, j;
+
+    i = 0;
+    j = n - 1;
+
+    //find matchings with evens from the right and odds from the left
+
+    while(true){
+
+        //move i to the right as long as you keep reading p or the index of i is even
+        while(i < j && (!data[i] || isEven(i))){
+            i++;
+        }
+
+        //move j to the left as long as you keep reading p or the index of j is odd
+
+        while(i < j && (!data[j] || !isEven(j))){
+            j--;
+        }
+
+        //if i is more than or equal to j, we have to end the loop.
+
+        if(i >= j){
+            break;
+        }
+
+        //now i<j and i is odd and j is even
+        evenR.push_back(j);
+        oddL.push_back(i);
+        i++;
+        j--;
+
+    }
+
+}
+
+void HartIstrail::run() {
+
+    findEvenOdd();
+    findOddEven();
 
 
 

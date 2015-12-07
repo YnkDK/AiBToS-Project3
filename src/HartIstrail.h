@@ -18,13 +18,16 @@
 class HartIstrail : public FoldingAlgorithm {
 private:
     vector<bool> data;
-    vector<pair<int, int>> evenL, oddR;
-    vector<pair<int, int>> evenR, oddL;
+    vector<size_t> evenL, oddR;
+    vector<size_t> evenR, oddL;
     size_t n;
 
     bool isEven(size_t index){
         return index%2==0;
     }
+
+    void findEvenOdd(); //find matchings with evens from the left and odds from the right
+    void findOddEven(); //find matchings with evens from the right and odds from the left
 
 public:
     void initialize(char *sequence);
