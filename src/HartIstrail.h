@@ -18,6 +18,14 @@
 class HartIstrail : public FoldingAlgorithm {
 private:
     vector<bool> data;
+    vector<pair<int, int>> evenL, oddR;
+    vector<pair<int, int>> evenR, oddL;
+    size_t n;
+
+    bool isEven(size_t index){
+        return index%2==0;
+    }
+
 public:
     void initialize(char *sequence);
     void run();

@@ -12,6 +12,7 @@
 #define AIBTOS_PROJECT3_FOLDINGALGORITHM_H
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
