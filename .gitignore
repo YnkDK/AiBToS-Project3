@@ -24,5 +24,15 @@
 
 # Executables
 *.exe
+/tmp
+/bin/AiBToS_Project1
 *.out
 *.app
+
+# IDE files
+.idea
+/cmake_install.cmake
+/CMakeFiles
+/CMakeCache.txt
+Makefile
+*~
