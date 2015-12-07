@@ -13,7 +13,52 @@
 #include "HartIstrail.h"
 
 void HartIstrail::print_relative_format() {
+    int64_t j, l, r = (R->size()-1);
+    for(j = 0; j < (*L)[0]; j++) {
+        printf("f");
+    }
+    // Start printing from the left
+    for(l = 0; l < L->size()-1; l++) {
+        const size_t dist = (*L)[l+1]-(*L)[l];
+        if(dist >= 4) {
+            // Make a tongue?
+            printf("l");
+            const size_t steps_forward = (dist - 2) / 2;
+            for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
+            printf("rr");
+            for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
+            printf("l");
+        } else {
+            // Continue
+            for(int64_t tmp = 0; tmp < dist; tmp++) printf("f");
+        }
+    }
+    // Connect left and right part
+    if((*L)[l]+1 == (*R)[r]) {
+        printf("rr");
+    } else {
+        const size_t steps_forward = ((*R)[r] - (*L)[l]) / 2;
+        for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
+        printf("rr");
+        for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
+    }
 
+    // Start printing the right part
+    for(; r > 0; r--) {
+        const size_t dist = (*R)[r-1]-(*R)[r];
+        if(dist > 4) {
+            printf("l");
+            const size_t steps_forward = (dist - 2) / 2;
+            for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
+            printf("rr");
+            for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
+            printf("l");
+        } else {
+            for(int64_t tmp = 0; tmp < dist; tmp++) printf("f");
+        }
+    }
+    // Print the rest
+    for(r = (*R)[0]+1; r < n - 1; r++) printf("f");
 }
 
 void HartIstrail::findEvenOdd() {
@@ -28,7 +73,7 @@ void HartIstrail::findEvenOdd() {
     while(true){
 
         //move i to the right as long as you keep reading p or the index of i is odd
-        while(i < j && (!data[i] || !isEven(i))){
+        while(i < j && (!data[i] || isOdd(i))){
             i++;
         }
 
@@ -72,7 +117,7 @@ void HartIstrail::findOddEven() {
 
         //move j to the left as long as you keep reading p or the index of j is odd
 
-        while(i < j && (!data[j] || !isEven(j))){
+        while(i < j && (!data[j] || isOdd(j))){
             j--;
         }
 
@@ -97,8 +142,13 @@ void HartIstrail::run() {
     findEvenOdd();
     findOddEven();
 
-
-
+    if(evenL.size() + oddR.size() > oddL.size() + evenR.size()) {
+        L = &evenL;
+        R = &oddR;
+    } else {
+        L = &oddL;
+        R = &evenR;
+    }
 }
 
 void HartIstrail::initialize(char *sequence) {

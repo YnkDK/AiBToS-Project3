@@ -15,16 +15,16 @@
 
 #include "FoldingAlgorithm.h"
 
+#define isEven(x) (x%2 == 0)
+#define isOdd(x) (x%2 != 0)
+
 class HartIstrail : public FoldingAlgorithm {
 private:
     vector<bool> data;
     vector<size_t> evenL, oddR;
     vector<size_t> evenR, oddL;
+    vector<size_t> *L, *R;
     size_t n;
-
-    bool isEven(size_t index){
-        return index%2==0;
-    }
 
     void findEvenOdd(); //find matchings with evens from the left and odds from the right
     void findOddEven(); //find matchings with evens from the right and odds from the left
