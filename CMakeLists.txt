@@ -13,6 +13,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -std=c++0x -march=native")
 set(SOURCE_FILES
         src/FoldingAlgorithm.h
         src/HartIstrail.cpp
+        src/HilbertCurve.cpp
         src/Progam.cpp)
 
 add_executable(AiBToS_Project3 ${SOURCE_FILES})
