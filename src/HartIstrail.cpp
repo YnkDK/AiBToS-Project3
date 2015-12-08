@@ -34,20 +34,11 @@ void HartIstrail::print_relative_format() {
         }
     }
     // Connect left and right part
-    if((*L)[l]+1 == (*R)[r]) {
-        if((*R)[0] - (*R)[r] >= 1) {
-            printf("rr");
-            (*R)[r] += 1;
-        }
-        else{
-            printf("f");
-        }
-    } else {
-        const size_t steps_forward = ((*R)[r] - (*L)[l] - 1) / 2;
-        for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
-        printf("rr");
-        for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
-    }
+
+    const size_t steps_forward = ((*R)[r] - (*L)[l] - 1) / 2;
+    for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
+    printf("rr");
+    for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
 
     // Start printing the right part
     for(; r > 0; r--) {
@@ -79,19 +70,19 @@ void HartIstrail::findEvenOdd() {
     while(true){
 
         //move i to the right as long as you keep reading p or the index of i is odd
-        while(i < j && (!data[i] || isOdd(i))){
+        while(i < j - 1 && (!data[i] || isOdd(i))){
             i++;
         }
 
         //move j to the left as long as you keep reading p or the index of j is even
 
-        while(i < j && (!data[j] || isEven(j))){
+        while(i < j - 1 && (!data[j] || isEven(j))){
             j--;
         }
 
         //if i is more than or equal to j, we have to end the loop.
 
-        if(i >= j){
+        if(i >= j - 1){
             break;
         }
 
@@ -117,19 +108,19 @@ void HartIstrail::findOddEven() {
     while(true){
 
         //move i to the right as long as you keep reading p or the index of i is even
-        while(i < j && (!data[i] || isEven(i))){
+        while(i < j - 1 && (!data[i] || isEven(i))){
             i++;
         }
 
         //move j to the left as long as you keep reading p or the index of j is odd
 
-        while(i < j && (!data[j] || isOdd(j))){
+        while(i < j - 1 && (!data[j] || isOdd(j))){
             j--;
         }
 
         //if i is more than or equal to j, we have to end the loop.
 
-        if(i >= j){
+        if(i >= j - 1){
             break;
         }
 
