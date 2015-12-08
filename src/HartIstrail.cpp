@@ -23,8 +23,8 @@ void HartIstrail::print_relative_format() {
         if(dist >= 4) {
             // Make a tongue?
             printf("l");
-            const size_t steps_forward = (dist - 2) / 2;
-            for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
+            const size_t steps_forward = (dist - 2) / 2 - 1;
+            for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
             printf("rr");
             for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
             printf("l");
@@ -35,9 +35,15 @@ void HartIstrail::print_relative_format() {
     }
     // Connect left and right part
     if((*L)[l]+1 == (*R)[r]) {
-        printf("rr");
+        if((*R)[0] - (*R)[r] >= 1) {
+            printf("rr");
+            (*R)[r] += 1;
+        }
+        else{
+            printf("f");
+        }
     } else {
-        const size_t steps_forward = ((*R)[r] - (*L)[l]) / 2;
+        const size_t steps_forward = ((*R)[r] - (*L)[l] - 1) / 2;
         for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
         printf("rr");
         for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
@@ -46,19 +52,19 @@ void HartIstrail::print_relative_format() {
     // Start printing the right part
     for(; r > 0; r--) {
         const size_t dist = (*R)[r-1]-(*R)[r];
-        if(dist > 4) {
+        if(dist >= 4) {
             printf("l");
-            const size_t steps_forward = (dist - 2) / 2;
-            for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
+            const size_t steps_forward = (dist - 2) / 2 - 1;
+            for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
             printf("rr");
-            for(size_t tmp = 0; tmp < steps_forward - 1; tmp++) printf("f");
+            for(size_t tmp = 0; tmp < steps_forward; tmp++) printf("f");
             printf("l");
         } else {
             for(int64_t tmp = 0; tmp < dist; tmp++) printf("f");
         }
     }
     // Print the rest
-    for(r = (*R)[0]+1; r < n - 1; r++) printf("f");
+    for(r = (*R)[0]; r < n-1; r++) printf("f");
 }
 
 void HartIstrail::findEvenOdd() {
