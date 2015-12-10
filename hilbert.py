@@ -23,6 +23,9 @@ if __name__ == "__main__":
 	if(sc > maxscore):
 	    optStr = seq3
 	    maxscore = sc
-    print optStr
-    print maxscore
+    print optStr,
+    if maxscore > 0:
+        print "-" + str(maxscore)
+    else:
+        print "0"
 
