@@ -7,10 +7,10 @@ if __name__ == "__main__":
     match = sys.argv[1]
     szMatch = len(match)
     seq = hpscore2.HPFold(match)
-    maxscore = 0
+    maxscore = -1
+    optStr = None
     for i in range(0, len(seq2)-szMatch+2):
 	seq3=seq2[i:i+szMatch-1]
-        print seq3
         absfold = hpscore2.make_absfold(seq3)
         relfold = hpscore2.make_relfold(seq3)
         if len(absfold) == len(seq) - 1:
@@ -21,5 +21,8 @@ if __name__ == "__main__":
 	    pass
         sc = seq.PrintFold()
 	if(sc > maxscore):
+	    optStr = seq3
 	    maxscore = sc
+    print optStr
     print maxscore
+
