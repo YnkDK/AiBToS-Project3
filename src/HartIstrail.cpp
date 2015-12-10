@@ -13,6 +13,13 @@
 #include "HartIstrail.h"
 
 void HartIstrail::print_relative_format() {
+
+    if(R->size() == 0){
+        for(size_t i=0; i<n-1;i++){
+            printf("f");
+        }
+        return;
+    }
     int64_t j, l, r = (R->size()-1);
     for(j = 0; j < (*L)[0]; j++) {
         printf("f");
